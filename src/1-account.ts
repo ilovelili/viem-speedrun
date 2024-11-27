@@ -15,17 +15,19 @@ console.log(`account address: ${account.address}`);
 
 // IIFE
 (async () => {
-  const client = createPublicClient({
+  const publicClient = createPublicClient({
     chain: arbitrumSepolia,
     transport: http(process.env.API_URL),
   });
 
-  const balance = await client.getBalance({ address: account.address });
+  const balance = await publicClient.getBalance({ address: account.address });
 
   // formatEther wei to ether
   // parseEther ether to wei
   console.log(formatEther(balance));
 
-  const nonce = await client.getTransactionCount({ address: account.address });
+  const nonce = await publicClient.getTransactionCount({
+    address: account.address,
+  });
   console.log(nonce);
 })();
